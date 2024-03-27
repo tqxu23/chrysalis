@@ -29,6 +29,8 @@ After the compilation, copy the executable maestro file into the cost_model dire
 
 Multiple python scripts are ready for reproducing the data shown in the paper. Run the following scripts to achieve the search results.
 
+The experiment examples are available in the `search` directory.
+
 ### Optimizing Existing AuTs with CHRYSALIS
 
 Run `$ python engineA.py engineA.yaml` in terminal to start a search process.
