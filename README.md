@@ -31,12 +31,12 @@ Multiple python scripts are ready for reproducing the data shown in the paper. R
 
 ### Optimizing Existing AuTs with CHRYSALIS
 
-Run `python engineA.py engineA.yaml` to start a search process.
+Run `$ python engineA.py engineA.yaml` in terminal to start a search process.
 
 A fast search for existing AuTs can be executed by using the script `search/engineA.py` and parameters in `search/engineA.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, light environment, simulation step size, and architecture search number. 
 
 ### AI Accelerator-based AuT design with CHRYSALIS
 
-Run `python engineB.py engineB.yaml` to start a search process.
+Run `$ python engineB.py engineB.yaml` in terminal to start a search process.
 
 A fast search for AI acceelerator-based AuTs can be executed by using the script `search/engineB.py` and paramerters in `search/engineB.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, accelerator PE number search range, accelerator memory search range, light environment, simulation step size, and architecture search number.
