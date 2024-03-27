@@ -366,7 +366,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
             print(max_throughput.trial_optuna_count, (count1 + count2) / 2, eh_area)
             return (count1 + count2) / 2, eh_area
 
-        study.optimize(max_throughput, n_trials=1, n_jobs=1)
+        study.optimize(max_throughput, n_trials=10, n_jobs=1)
         drawImg(study,name, step)
         # fig = optuna.visualization.plot_pareto_front(study)
         # # plotly.offline.plot(fig)
