@@ -1,0 +1,128 @@
+cmake_minimum_required(VERSION 3.25)
+project(maestro)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(cost-model/include)
+include_directories(cost-model/include/abstract-hardware-model)
+include_directories(cost-model/include/base)
+include_directories(cost-model/include/cost-analysis)
+include_directories(cost-model/include/dataflow-analysis)
+include_directories(cost-model/include/dataflow-specification-language)
+include_directories(cost-model/include/design-space-exploration)
+include_directories(cost-model/include/tools)
+include_directories(cost-model/include/user-api)
+
+add_executable(maestro
+        cost-model/include/abstract-hardware-model/AHW-pe-array.hpp
+        cost-model/include/abstract-hardware-model/AHW-pe-model.hpp
+        cost-model/include/abstract-hardware-model/AHW_Accelerator.hpp
+        cost-model/include/abstract-hardware-model/AHW_noc-model.hpp
+        cost-model/include/base/BASE_base-objects.hpp
+        cost-model/include/base/BASE_constants.hpp
+        cost-model/include/base/BASE_maestro-class.hpp
+        cost-model/include/cost-analysis/CA_analysis-types.hpp
+        cost-model/include/cost-analysis/CA_cost-analysis-engine.hpp
+        cost-model/include/cost-analysis/CA_cost-analysis-results.hpp
+        cost-model/include/cost-analysis/CA_iterations.hpp
+        cost-model/include/cost-analysis/CA_reuse-analysis.hpp
+        cost-model/include/dataflow-analysis/DFA_analysis-output.hpp
+        cost-model/include/dataflow-analysis/DFA_cluster-analysis.hpp
+        cost-model/include/dataflow-analysis/DFA_cluster-table.hpp
+        cost-model/include/dataflow-analysis/DFA_cluster-unit.hpp
+        cost-model/include/dataflow-analysis/DFA_dimension-overlap-info-table.hpp
+        cost-model/include/dataflow-analysis/DFA_dimension-table.hpp
+        cost-model/include/dataflow-analysis/DFA_directive-table.hpp
+        cost-model/include/dataflow-analysis/DFA_directives.hpp
+        cost-model/include/dataflow-analysis/DFA_iteration-analysis.hpp
+        cost-model/include/dataflow-analysis/DFA_iteration-status.hpp
+        cost-model/include/dataflow-analysis/DFA_layer.hpp
+        cost-model/include/dataflow-analysis/DFA_neural-network.hpp
+        cost-model/include/dataflow-analysis/DFA_tensor-table.hpp
+        cost-model/include/dataflow-analysis/DFA_tensor.hpp
+        cost-model/include/dataflow-specification-language/DFSL_hw-parser.hpp
+        cost-model/include/dataflow-specification-language/DFSL_parser.hpp
+        cost-model/include/dataflow-specification-language/DFSL_syntax_tokens.hpp
+        cost-model/include/design-space-exploration/DSE_config.hpp
+        cost-model/include/design-space-exploration/DSE_cost-database.hpp
+        cost-model/include/design-space-exploration/DSE_csv_writer.hpp
+        cost-model/include/design-space-exploration/DSE_design-options.hpp
+        cost-model/include/design-space-exploration/DSE_design_point.hpp
+        cost-model/include/design-space-exploration/DSE_engine.hpp
+        cost-model/include/design-space-exploration/DSE_hardware_modules.hpp
+        cost-model/include/design-space-exploration/DSE_scaling-coefficients.hpp
+        cost-model/include/tools/TL_analysis-results-csv-writer.hpp
+        cost-model/include/tools/TL_error-handler.hpp
+        cost-model/include/tools/TL_generic-csv-writer.hpp
+        cost-model/include/tools/TL_message-printer.hpp
+        cost-model/include/user-api/API_configuration.hpp
+        cost-model/include/user-api/API_user-interface-v2.hpp
+        cost-model/include/user-api/API_user-interface.hpp
+        cost-model/include/maestro-marvel.h
+        cost-model/include/option.hpp
+        cost-model/src/BASE_base-objects.cpp
+        cost-model/src/maestro-marvel.cpp
+        data/hw/accelerator_1.m
+        data/mapping/example.m
+        data/mapping/GEMM_Example.m
+        data/mapping/gnmt_nmk.m
+        data/mapping/googlenet_kcp_ws.m
+        data/mapping/googlenet_rs.m
+        data/mapping/googlenet_xp_ws.m
+        data/mapping/googlenet_ykp_os.m
+        data/mapping/mnasnet_kcp_ws.m
+        data/mapping/mnasnet_rs.m
+        data/mapping/mnasnet_xp_ws.m
+        data/mapping/mnasnet_ykp_os.m
+        data/mapping/MobileNetV2_kcp_ws.m
+        data/mapping/MobileNetV2_xp_ws.m
+        data/mapping/MobileNetV2_yxp_os.m
+        data/mapping/ncf_nmk.m
+        data/mapping/Resnet50_kcp_ws.m
+        data/mapping/Resnet50_nlr.m
+        data/mapping/Resnet50_rs.m
+        data/mapping/Resnet50_xp_ws.m
+        data/mapping/Resnet50_yxp_os.m
+        data/mapping/ResNeXt50_kcp_ws.m
+        data/mapping/ResNeXt50_nlr.m
+        data/mapping/ResNeXt50_rs.m
+        data/mapping/ResNeXt50_xp_ws.m
+        data/mapping/ResNeXt50_yxp_os.m
+        data/mapping/squeezenet1_0_kcp_ws.m
+        data/mapping/squeezenet1_0_rs.m
+        data/mapping/squeezenet1_0_xp_ws.m
+        data/mapping/squeezenet1_0_ykp_os.m
+        data/mapping/Transformer_Complete.m
+        data/mapping/Transformer_Layers.m
+        data/mapping/UNet_kcp_ws.m
+        data/mapping/UNet_nlr.m
+        data/mapping/UNet_RS.m
+        data/mapping/UNet_xp_ws.m
+        data/mapping/UNet_yxp_os.m
+        data/mapping/vgg16_ckp_ws.m
+        data/mapping/vgg16_nlr.m
+        data/mapping/vgg16_rs.m
+        data/mapping/vgg16_xp_ws.m
+        data/mapping/vgg16_yxp_os.m
+        data/model/dnn_model.m
+        data/model/gnmt_model.m
+        data/model/googlenet_model.m
+        data/model/mnasnet_model.m
+        data/model/MobileNetV2_model.m
+        data/model/ncf_model.m
+        data/model/Resnet50_model.m
+        data/model/ResNeXt50_model.m
+        data/model/squeezenet1_0_model.m
+        data/model/Transformer_Complete_model.m
+        data/model/Transformer_Layers_model.m
+        data/model/UNet_model.m
+        data/model/vgg16_model.m
+        tools/frontend/dataflow/dpt.m
+        tools/frontend/dataflow/kcp_ws.m
+        tools/frontend/dataflow/maeri.m
+        tools/frontend/dataflow/rs.m
+        tools/frontend/dataflow/xp_ws.m
+        tools/frontend/dataflow/ykp_os.m
+        validation/eyeriss/alexnet_rs_validation.m
+        validation/maeri/vgg16_maeri.m
+        maestro-top.cpp)

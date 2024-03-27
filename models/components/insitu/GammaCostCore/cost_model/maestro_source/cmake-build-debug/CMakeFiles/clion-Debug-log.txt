@@ -1,0 +1,34 @@
+/root/.cache/JetBrains/RemoteDev/dist/1466a3f304df6_CLion-231.8109.141/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/root/.cache/JetBrains/RemoteDev/dist/1466a3f304df6_CLion-231.8109.141/bin/ninja/linux/x64/ninja -G Ninja -S /root/AIoTer/dseEngine/models/components/insitu/maestro/maestro -B /root/AIoTer/dseEngine/models/components/insitu/maestro/maestro/cmake-build-debug
+-- The C compiler identification is GNU 11.3.0
+-- The CXX compiler identification is GNU 11.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/AIoTer/dseEngine/models/components/insitu/maestro/maestro/cmake-build-debug
+
+Cannot get compiler information:
+	Compiler exited with error code 1: /usr/bin/cc -xobjective-c -g -fpch-preprocess -v -dD -E
+	Using built-in specs.
+	COLLECT_GCC=/usr/bin/cc
+	OFFLOAD_TARGET_NAMES=nvptx-none:amdgcn-amdhsa
+	OFFLOAD_TARGET_DEFAULT=1
+	Target: x86_64-linux-gnu
+	Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.3.0-1ubuntu1~22.04' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-11-xKiWfi/gcc-11-11.3.0/debian/tmp-nvptx/usr,amdgcn-amdhsa=/build/gcc-11-xKiWfi/gcc-11-11.3.0/debian/tmp-gcn/usr --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=2
+	Thread model: posix
+	Supported LTO compression algorithms: zlib zstd
+	gcc version 11.3.0 (Ubuntu 11.3.0-1ubuntu1~22.04) 
+	COLLECT_GCC_OPTIONS='-g' '-fpch-preprocess' '-v' '-dD' '-E' '-D' '___CIDR_DEFINITIONS_END' '-mtune=generic' '-march=x86-64'
+	 cc1obj -E -quiet -v -imultiarch x86_64-linux-gnu -D ___CIDR_DEFINITIONS_END /tmp/compiler-file10104379458313988414 -mtune=generic -march=x86-64 -fpch-preprocess -g -fworking-directory -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -dD -dumpbase compiler-file10104379458313988414
+	cc: fatal error: cannot execute 'cc1obj': execvp: No such file or directory
+	compilation terminated.
+	
+	
