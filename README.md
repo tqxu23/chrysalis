@@ -39,4 +39,4 @@ A fast search for existing AuTs can be executed by using the script `search/engi
 
 Run `python engineB.py engineB.yaml` to start a search process.
 
-A fast search for AI acceelerator-based AuTs can be executed by using the script `search/engineB.py` and paramerters in `search/engineB.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, accelerator PE number search range, accelerator memory search range, light environment, simulation step size, and architecture search number. `search/engineB.sh` provides the simple startup examples. 
+A fast search for AI acceelerator-based AuTs can be executed by using the script `search/engineB.py` and paramerters in `search/engineB.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, accelerator PE number search range, accelerator memory search range, light environment, simulation step size, and architecture search number.
