@@ -14,7 +14,7 @@ Artifact Evaluation Repository for ISCA 24
 `$ pip install -r requirements.txt`
 
 **Environment for accelerator search.** For experiment B in our paper, an external compilation for accelerator simulator is required. The simulation is based on MAESTRO while extend for intermittent scenarios.
-1
+
 `$ apt install libboost-all-dev scons g++`
 
 `$ cd chrysalis/models/components/insitu/GammaCostCore/cost_model/maestro_source`
