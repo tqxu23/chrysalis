@@ -1,0 +1,12 @@
+network: cifar # available: cifar, simple, kws, har
+sp: # solar panel size, m^2
+  from: 1.0e-4
+  to: 30.0e-4
+cap: # capacitor size, F
+  from: 1.0e-6
+  to: 1.0e-2
+solar: # tested solar environments, W/m^2
+  min: 20
+  max: 40
+step: 50 # step amount per second for simulation
+epoch: 100 # generate epoch*10 architectures for AuT search

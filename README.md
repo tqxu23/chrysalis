@@ -25,15 +25,18 @@ After the compilation, copy the executable maestro file into the cost_model dire
 
 `$ cp ./maestro ../maestro`
 
-
 ## Experiment workflow
 
 Multiple python scripts are ready for reproducing the data shown in the paper. Run the following scripts to achieve the search results.
 
 ### Optimizing Existing AuTs with CHRYSALIS
 
-A fast search for existing AuTs can be executed by using the script `search/engineA.py` and parameters in `search/engineA.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, light environment, simulation step size, and architecture search number. Run `python engineA.py engineA.yaml` to start a search process.
+Run `python engineA.py engineA.yaml` to start a search process.
+
+A fast search for existing AuTs can be executed by using the script `search/engineA.py` and parameters in `search/engineA.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, light environment, simulation step size, and architecture search number. 
 
 ### AI Accelerator-based AuT design with CHRYSALIS
 
-A fast search for AI acceelerator-based AuTs can be executed by using the script `search/engineB.py` and paramerters in `search/engineB.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, accelerator PE number search range, accelerator memory search range, light environment, simulation step size, and architecture search number. `search/engineB.sh` provides the simple startup examples. Run `python engineB.py engineB.yaml` to start a search process.
+Run `python engineB.py engineB.yaml` to start a search process.
+
+A fast search for AI acceelerator-based AuTs can be executed by using the script `search/engineB.py` and paramerters in `search/engineB.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, accelerator PE number search range, accelerator memory search range, light environment, simulation step size, and architecture search number. `search/engineB.sh` provides the simple startup examples. 
