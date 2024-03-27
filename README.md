@@ -5,7 +5,7 @@ Artifact Evaluation Repository for ISCA 24
 
 **Repository Clone.** Firstly, clone our artifact from the repository.
 
-`$ git clone ......`
+`$ git clone https://github.com/tqxu23/chrysalis`
 
 **Basic environment setup.** The following steps are required to install the software dependencies of the artifact. The linux operating system environment and python should be ready before the setup.
 
