@@ -21,7 +21,7 @@ The code still needs to be reorganized and is planned to be optimized for subseq
 │   │   │   └── ...  
 │   │   ├── insitu/ # inference subsystem components  
 │   │   │   └── ...  
-│   │   └── Component.py # comopnent class definition  
+│   │   └── Component.py # component class definition  
 │   ├── DummyModel.py # basic available model   
 │   ├── GammaModel.py # model for AI Accelerator-based AuT  
 │   ├── iNASModel.py # model for existing AuT  
@@ -34,9 +34,9 @@ The code still needs to be reorganized and is planned to be optimized for subseq
 │   ├── engineB.yaml # parameters for experimentB  
 │   └── throughput.py # basic throughput methods (to be updated)  
 ├── README.md  # current file  
-├── README_quickstart.md  
-├── requirements.txt  
-└── utils.py  
+├── README_quickstart.md # search quick start for Artifact Evaluation  
+├── utils.py # used utils for search  
+└── requirements.txt # required python packages  
 
 ## Updates
 
