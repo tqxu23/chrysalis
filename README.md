@@ -7,12 +7,15 @@ CHRYSALIS is an open-source tool that seeks a synergism of the energy autonomy d
 Given a domain-specific DNN model along with its corresponding dataset, the high-level specifications of the AuT (including environment and technology constraints) as well as specific
 objective demands, CHRYSALIS can automatically generate the ideal AuT solution that encompasses the configurations of energy harvester hardware (EH HW), inference hardware (Infer HW), and the dataflow of the workload. The generated solution is tailored specifically to the provided inputs, resulting in a customized and efficient AuT architecture design.
 
-## Strcture
+## QuickStart
+
+See `README_quickstart.md` to start search examples for artifact evaluation.
+
+## Structure
 
 The code still needs to be reorganized and is planned to be optimized for subsequent incremental updates before the ISCA 2024 conference.
 
-chrysalis  
-├── models/ # models for search describers and simulators    
+>├── models/ # models for search describers and simulators    
 │   ├── components/ # components for AuT models   
 │   │   ├── eh/ # energy harvesting subsystem components  
 │   │   │   └── ...  
@@ -34,10 +37,6 @@ chrysalis
 ├── README_quickstart.md  
 ├── requirements.txt  
 └── utils.py  
-
-## QuickStart
-
-See `README_quickstart.md` to start search examples for artifact evaluation.
 
 ## Updates
 
