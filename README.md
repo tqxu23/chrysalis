@@ -9,22 +9,31 @@ objective demands, CHRYSALIS can automatically generate the ideal AuT solution t
 
 ## Strcture
 
-├── models/  
-│   ├── /  
-│   ├── /  
+The code still needs to be reorganized and is planned to be optimized for subsequent incremental updates before the ISCA 2024 conference.
+
+chrysalis  
+├── models/ # models for search describers and simulators    
+│   ├── components/ # components for AuT models   
+│   │   ├── eh/ # energy harvesting subsystem components  
+│   │   │   └── ...  
+│   │   ├── insitu/ # inference subsystem components  
+│   │   │   └── ...  
+│   │   └── Component.py # comopnent class definition  
+│   ├── DummyModel.py # basic available model   
+│   ├── GammaModel.py # model for AI Accelerator-based AuT  
+│   ├── iNASModel.py # model for existing AuT  
+│   ├── Model.py # model class definition  
 │   └── ...  
-├── search/  
-│   ├── /  
-│   ├── /  
-│   └── ...  
-├── README.md  
+├── search/  # search scripts for quick start  
+│   ├── engineA.py # search script for experimentA (Optimizing Existing AuTs with CHRYSALIS)  
+│   ├── engineA.yaml # parameters for experimentA  
+│   ├── engineB.py # search script for experimentB (AI Accelerator-based AuT design with CHRYSALIS)  
+│   ├── engineB.yaml # parameters for experimentB  
+│   └── throughput.py # basic throughput methods (to be updated)  
+├── README.md  # current file  
 ├── README_quickstart.md  
 ├── requirements.txt  
 └── utils.py  
-
-
-
-The code that still needs to be organized is planned for subsequent incremental updates.
 
 ## QuickStart
 
