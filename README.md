@@ -1,44 +1,53 @@
-# A Tale of Two Domains: Exploring Efficient Architecture Design for Truly Autonomous Things
-Artifact Evaluation Repository for ISCA 24
+# CHRYSALIS: a novel automated EA/IA co-design methodology for autonomous things
 
-## Installation
+## What is CHRYSALIS?
 
-**Repository Clone.** Firstly, clone our artifact from the repository.
+CHRYSALIS is an open-source tool that seeks a synergism of the energy autonomy domain and the inference autonomy domain in AuT design. The proposed methodology takes a holistic perspective, considering multiple aspects of different subsystems in an automated way.
 
-`$ git clone https://github.com/tqxu23/chrysalis`
+Given a domain-specific DNN model along with its corresponding dataset, the high-level specifications of the AuT (including environment and technology constraints) as well as specific
+objective demands, CHRYSALIS can automatically generate the ideal AuT solution that encompasses the configurations of energy harvester hardware (EH HW), inference hardware (Infer HW), and the dataflow of the workload. The generated solution is tailored specifically to the provided inputs, resulting in a customized and efficient AuT architecture design.
 
-**Basic environment setup.** The following steps are required to install the software dependencies of the artifact. The linux operating system environment and python should be ready before the setup.
+## Strcture
 
-`$ cd chrysalis`
+>├── models/
+>│   ├── /
+>│   ├── /
+>│   └── ...
+>├── search/
+>│   ├── /
+>│   ├── 子文件夹2/
+>│   └── ...
+>├── README.md
+>├── README_quickstart.md
+>└── requirements.txt
+>└── utils.py
 
-`$ pip install -r requirements.txt`
 
-**Environment for accelerator search.** For experiment B in our paper, an external compilation for accelerator simulator is required. The simulation is based on MAESTRO while extend for intermittent scenarios.
 
-`$ apt install libboost-all-dev scons g++`
+The code that still needs to be organized is planned for subsequent incremental updates.
 
-`$ cd chrysalis/models/components/insitu/GammaCostCore/cost_model/maestro_source`
+## QuickStart
 
-`$ scons`
+See `README_quickstart.md` to start search examples for artifact evaluation.
 
-After the compilation, copy the executable maestro file into the cost_model directory.
+## Updates
 
-`$ cp ./maestro ../maestro`
+### March 29th, 2024
 
-## Experiment workflow
+Available artifact released for the Artifact Evaluation for ISCA 2024 paper.
 
-Multiple python scripts are ready for reproducing the data shown in the paper. Run the following scripts to achieve the search results.
+## Acknowledgement
 
-The experiment examples are available in the `search` directory.
+We reference the following existing works to build our tool.
 
-### Optimizing Existing AuTs with CHRYSALIS
+[MAESTRO](https://github.com/maestro-project/maestro)
 
-Run `$ python engineA.py engineA.yaml` in terminal to start a search process.
+`Kwon Hyoukjun, Chatarasi Prasanth, Sarkar Vivek, Krishna Tushar, Pellauer Michael, and Parashar Angshuman, "MAESTRO: A Data-Centric Approach to Understand Reuse, Performance, and Hardware Cost of DNN Mappings," in IEEE Micro, vol. 40, no. 3, pp. 20-29, 1 May-June 2020, doi: 10.1109/MM.2020.2985963.`
 
-A fast search for existing AuTs can be executed by using the script `search/engineA.py` and parameters in `search/engineA.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, light environment, simulation step size, and architecture search number. 
+[GAMMA](https://github.com/maestro-project/gamma)
 
-### AI Accelerator-based AuT design with CHRYSALIS
+`Sheng-Chun Kao, and Tushar Krishna, "GAMMA: automating the HW mapping of DNN models on accelerators via genetic algorithm," in Proceedings of the 39th International Conference on Computer-Aided Design (ICCAD'20), doi: 10.1145/3400302.3415639.`
 
-Run `$ python engineB.py engineB.yaml` in terminal to start a search process.
+[iNAS](https://github.com/EMCLab-Sinica/Intermittent-aware-NAS)
 
-A fast search for AI acceelerator-based AuTs can be executed by using the script `search/engineB.py` and paramerters in `search/engineB.yaml`. The parameters can be customized including the capacitance search range, solar panel size search range, accelerator PE number search range, accelerator memory search range, light environment, simulation step size, and architecture search number.
+`Hashan Roshantha Mendis, Chih-Kai Kang, and Pi-Cheng Hsiu, "Intermittent-Aware Neural Architecture Search," to appear in ACM Transactions on Embedded Computing Systems, (Integrated with IEEE/ACM CODES+ISSS 2021), doi: 10.1145/3476995.`
