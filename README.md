@@ -10,16 +10,27 @@ objective demands, CHRYSALIS can automatically generate the ideal AuT solution t
 ## Strcture
 
 >├── models/
+
 >│   ├── /
+
 >│   ├── /
+
 >│   └── ...
+
 >├── search/
+
 >│   ├── /
+
 >│   ├── 子文件夹2/
+
 >│   └── ...
+
 >├── README.md
+
 >├── README_quickstart.md
+
 >└── requirements.txt
+
 >└── utils.py
 
 
