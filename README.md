@@ -7,9 +7,9 @@ CHRYSALIS is an open-source tool that seeks a synergism of the energy autonomy d
 Given a domain-specific DNN model along with its corresponding dataset, the high-level specifications of the AuT (including environment and technology constraints) as well as specific
 objective demands, CHRYSALIS can automatically generate the ideal AuT solution that encompasses the configurations of energy harvester hardware (EH HW), inference hardware (Infer HW), and the dataflow of the workload. The generated solution is tailored specifically to the provided inputs, resulting in a customized and efficient AuT architecture design.
 
-## QuickStart
+## Quick Start for Artifact Evaluation
 
-See `README_quickstart.md` to start search examples for artifact evaluation.
+See `README_quickstart.md` to start search examples.
 
 ## Structure
 
