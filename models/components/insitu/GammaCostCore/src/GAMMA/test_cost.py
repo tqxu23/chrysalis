@@ -130,8 +130,8 @@ def test_cost(default_params):
                f"{f'_FixedPE-{opt.num_pe}' if opt.num_pe > 0 else ''}{f'_L2Size-{opt.l2_size}' if opt.l2_size > 0 else ''}" \
                f"{f'_L1Size-{opt.l1_size}' if opt.l1_size > 0 else ''}{'_factorOnly' if opt.use_factor else ''}{f'_CostModelCstr-{opt.costmodel_cstr}' if opt.costmodel_cstr else ''}"
     outdir_exp = os.path.join(outdir, exp_name)
-    os.makedirs(outdir, exist_ok=True)
-    os.makedirs(outdir_exp, exist_ok=True)
+    # os.makedirs(outdir, exist_ok=True)
+    # os.makedirs(outdir_exp, exist_ok=True)
     chkpt_file_t = "{}".format("result")
     chkpt_file = os.path.join(outdir_exp, chkpt_file_t + "_c.plt")
     map_cstr = None
