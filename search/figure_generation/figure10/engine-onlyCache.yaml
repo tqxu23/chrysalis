@@ -4,7 +4,7 @@ accelerator:
     from: 1
     to: 64
   cache: # cache size of each pe
-    from: 1024
+    from: 16384
     to: 16384
 network: alexnet # available: alexnet, vgg16, BERT_m, resnet18
 sp: # solar panel size, m^2
