@@ -1,10 +1,11 @@
 import sys
 
-sys.path.append("../")
+sys.path.append("../../../")
 import yaml
 
 import numpy as np
 import optuna
+import pandas as pd
 import search
 import models
 import plotly
@@ -229,6 +230,7 @@ def drawImg(study,name,step):
     fig.write_html(f"./{name}.html")
     # plotly.offline.plot(fig)
 
+
 def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
     for i in range(num):
         print(f"Current Epoch: {i}")
@@ -370,14 +372,15 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
             print(max_throughput.trial_optuna_count, (count1 + count2) / 2, eh_area)
             return (count1 + count2) / 2, eh_area
 
-        study.optimize(max_throughput, n_trials=1, n_jobs=1)
+        study.optimize(max_throughput, n_trials=10, n_jobs=1)
         drawImg(study,name, step)
+        return study
         # fig = optuna.visualization.plot_pareto_front(study)
         # # plotly.offline.plot(fig)
         # fig.write_image("./result.png", scale=3)
 
 
-def getRes(name, layers,area1,area2,cap1,cap2,envir1, envir2, step,num):
+def getRes(name, layers,area1,area2,cap1,cap2,envir1, envir2, step,num,mode="lat"):
     optuna.logging.set_verbosity(optuna.logging.WARNING)
     study_name = f"{name}_sp_{area1}_{area2}_cap_{cap1}_{cap2}_envir_{envir1}_{envir2}_step_{step}"  # Unique identifier of the study.
     storage_name = "sqlite:///{}.db".format(study_name)
@@ -385,24 +388,86 @@ def getRes(name, layers,area1,area2,cap1,cap2,envir1, envir2, step,num):
     #                             load_if_exists=True)
     study = optuna.create_study(directions=["minimize", "minimize"], study_name=study_name,
                                 storage=storage_name, load_if_exists=True)
-    engine(study, study_name, layers, envir1, envir2,area1,area2,cap1,cap2,step,num)
+    study = engine(study, study_name, layers, envir1, envir2,area1,area2,cap1,cap2,step,num)
+    df = study.trials_dataframe()
+    if mode=="lat":
+        print(df)
+        return df[df["values_0"] == df["values_0"].min()].iloc[0]
+    elif mode=="sp":
+        return df[df["values_1"] == df["values_1"].min()].iloc[0]
+    elif mode=="sp*lat" or mode=="lat*sp":
+        df["lat*sp"] = df.values_1 * df.values_0
+        df[df["lat*sp"] == df["lat*sp"].min()].iloc[0]
+    return None
+
 
 def read_yaml(file_path):
     with open(file_path, "r") as f:
         return yaml.safe_load(f)
 
+
+def drawBar1(df,name):
+    fig = px.bar(df,
+                     x="SP size(cm²)",
+                     y="system_efficiency",
+                     color='lat*sp',
+                     color_continuous_scale='blugrn',
+                     height=600, width=800,
+                     hover_data=['params_cap_size',"ckpt_energy","system_efficiency","cap_leakage"]
+                     )
+    fig.update_layout(font=dict(family='Arial'), font_color='black', font_size=26)
+    fig.write_html(f"./{name}.html")
+    # plotly.offline.plot(fig)
+
+def drawBar2(df,name):
+    
+    fig = px.bar(df,
+                     x="SP size(cm²)",
+                     y="ckpt_energy",
+                     color='lat*sp',
+                     color_continuous_scale='blugrn',
+                     height=600, width=800,
+                     hover_data=['params_cap_size',"ckpt_energy","system_efficiency","cap_leakage"]
+                     )
+    fig.update_layout(font=dict(family='Arial'), font_color='black', font_size=26)
+    fig.write_html(f"./{name}.html")
+    # plotly.offline.plot(fig)
+
 if __name__ == '__main__':
 
     yaml_name = sys.argv[1]
     data = read_yaml(yaml_name)
-    print(data)  # {'age': 45, 'name': 'zhangsan'}
+    print(data) 
     networks = {
         "cifar": get_layer_cifar(),
         "simple": get_single_conv(),
         "kws": get_layer_kws(),
         "har": get_layer_har()}
     layer = networks[data['network']]
+    sp_size = data['sp']['from']
+    df = pd.DataFrame()
+    while True:
+        if sp_size>data['sp']['to']:
+            break
+        ret = getRes(data['network'], layer,sp_size,sp_size,data['cap']['from'],data['cap']['to'],data['solar']['min'],data['solar']['max'],data['step'],data['epoch'])
+        df = df.append(ret)
+        sp_size = sp_size + data['sp']['step']
+    print(df)
 
-    getRes(data['network'], layer,data['sp']['from'],data['sp']['to'],data['cap']['from'],data['cap']['to'],data['solar']['min'],data['solar']['max'],data['step'],data['epoch'])
+    df["ckpt_energy"] = df.user_attrs_Er.astype(float) + df.user_attrs_Ew.astype(float) + df.user_attrs_Eb.astype(float)
+    df.values_1 = df.values_1 * 10000
+    df.values_0 = df.values_0 / data['step']
+    df["lat*sp"] = df.values_1 * df.values_0
+    df["system_efficiency"] = df.user_attrs_Ec.astype(float)/(data['step']*df["lat*sp"]*0.0001*30*0.15)
+    df["cap_leakage"] = df.params_cap_size.astype(float)*df.values_0.astype(float)*9*0.001
+    df = df[(df.values_0 > 0.2)]
+    df = df[(df.values_0 < 100)]
+    df.rename(columns={"values_0": "Latency (s)", "values_1": "SP size(cm²)"}, inplace=True)
+
+    drawBar1(df,"figure8-example-1")
+    drawBar2(df,"figure8-example-2")
 
 #     getDf("example-study0719-runTime-cap")
+
+
+

@@ -1,0 +1,20 @@
+accelerator:
+  arch: tpu_accel #available: tpu_accel, eye_accel
+  pe: #pe numbers of the accelerator
+    from: 1
+    to: 64
+  cache: # cache size of each pe
+    from: 1024
+    to: 16384
+network: alexnet # available: alexnet, vgg16, BERT_m, resnet18
+sp: # solar panel size, m^2
+  from: 10.0e-4
+  to: 10.0e-4
+cap: # capacitor size, F
+  from: 1.0e-6
+  to: 1.0e-2
+solar: # tested solar environments, W/m^2
+  min: 20
+  max: 40
+step: 50 # step amount per second for simulation
+epoch: 100 # generate epoch*10 architectures for AuT search
