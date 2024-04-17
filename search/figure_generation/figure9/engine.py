@@ -388,7 +388,7 @@ def getRes(name, layers,area1,area2,cap1,cap2,envir1, envir2, step,num,mode="sp*
     #                             load_if_exists=True)
     study = optuna.create_study(directions=["minimize", "minimize"], study_name=study_name,
                                 storage=storage_name, load_if_exists=True)
-    # study = engine(study, study_name, layers, envir1, envir2,area1,area2,cap1,cap2,step,num)
+    study = engine(study, study_name, layers, envir1, envir2,area1,area2,cap1,cap2,step,num)
     df = study.trials_dataframe()
     if mode=="lat":
         return df[df["values_0"] == df["values_0"].min()].iloc[0]
