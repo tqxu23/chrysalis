@@ -263,7 +263,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
                     Tn = trial.suggest_categorical('tn', getLists(maxTn))
                     l['tile_size'] = [1, 1, 1, 1, Tr, Tc, Tm, Tn]
                     param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                                  "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar1, "layer": [l],
+                                  "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar1, "layer": [l],
                                   "ExecInfo": test_cnn_cost.get_conv_cost,
                                   "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
                     model = iNASModel(step, param_list)
@@ -282,7 +282,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
                         return 5000
 
                     param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                                  "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar2, "layer": [l],
+                                  "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar2, "layer": [l],
                                   "ExecInfo": test_cnn_cost.get_conv_cost,
                                   "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
                     model = iNASModel(step, param_list)
@@ -327,7 +327,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
                 l['tile_size'] = [1, 1, 1, 1, Tr, Tc, Tm, Tn]
                 layer_new.append(l)
             param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                          "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar1, "layer": layer_new,
+                          "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar1, "layer": layer_new,
                           "ExecInfo": test_cnn_cost.get_conv_cost,
                           "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
             model = iNASModel(step, param_list)
@@ -344,7 +344,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
             if errFlag:
                 return 10000
             param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                          "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar2, "layer": layer_new,
+                          "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar2, "layer": layer_new,
                           "ExecInfo": test_cnn_cost.get_conv_cost,
                           "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
             model = iNASModel(step, param_list)
@@ -374,7 +374,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
 
         study.optimize(max_throughput, n_trials=10, n_jobs=1)
         drawImg(study,name, step)
-        return study
+    return study
         # fig = optuna.visualization.plot_pareto_front(study)
         # # plotly.offline.plot(fig)
         # fig.write_image("./result.png", scale=3)
@@ -458,14 +458,15 @@ if __name__ == '__main__':
     df.values_1 = df.values_1 * 10000
     df.values_0 = df.values_0 / data['step']
     df["lat*sp"] = df.values_1 * df.values_0
-    df["system_efficiency"] = df.user_attrs_Ec.astype(float)/(data['step']*df["lat*sp"]*0.0001*30*0.15)
+    df["system_efficiency"] = (df.user_attrs_Er.astype(float) + df.user_attrs_Ew.astype(float) + df.user_attrs_Eb.astype(float))/(data['step']*df["lat*sp"]*0.0001*30*0.15)
     df["cap_leakage"] = df.params_cap_size.astype(float)*df.values_0.astype(float)*9*0.001
     df = df[(df.values_0 > 0.2)]
     df = df[(df.values_0 < 100)]
     df.rename(columns={"values_0": "Latency (s)", "values_1": "SP size(cm²)"}, inplace=True)
-
-    drawBar1(df,"figure8-example-1")
-    drawBar2(df,"figure8-example-2")
+    name = data['network']
+    df.to_csv(data['network']+'.csv', index=False)
+    drawBar1(df,name+"-1")
+    drawBar2(df,name+"-2")
 
 #     getDf("example-study0719-runTime-cap")
 

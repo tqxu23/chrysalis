@@ -263,7 +263,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
                     Tn = trial.suggest_categorical('tn', getLists(maxTn))
                     l['tile_size'] = [1, 1, 1, 1, Tr, Tc, Tm, Tn]
                     param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                                  "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar1, "layer": [l],
+                                  "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar1, "layer": [l],
                                   "ExecInfo": test_cnn_cost.get_conv_cost,
                                   "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
                     model = iNASModel(step, param_list)
@@ -282,7 +282,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
                         return 5000
 
                     param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                                  "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar2, "layer": [l],
+                                  "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar2, "layer": [l],
                                   "ExecInfo": test_cnn_cost.get_conv_cost,
                                   "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
                     model = iNASModel(step, param_list)
@@ -327,7 +327,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
                 l['tile_size'] = [1, 1, 1, 1, Tr, Tc, Tm, Tn]
                 layer_new.append(l)
             param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                          "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar1, "layer": layer_new,
+                          "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar1, "layer": layer_new,
                           "ExecInfo": test_cnn_cost.get_conv_cost,
                           "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
             model = iNASModel(step, param_list)
@@ -344,7 +344,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
             if errFlag:
                 return 10000
             param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                          "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar2, "layer": layer_new,
+                          "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar2, "layer": layer_new,
                           "ExecInfo": test_cnn_cost.get_conv_cost,
                           "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
             model = iNASModel(step, param_list)
@@ -388,7 +388,7 @@ def getRes(name, layers,area1,area2,cap1,cap2,envir1, envir2, step,num,mode="sp*
     #                             load_if_exists=True)
     study = optuna.create_study(directions=["minimize", "minimize"], study_name=study_name,
                                 storage=storage_name, load_if_exists=True)
-    # study = engine(study, study_name, layers, envir1, envir2,area1,area2,cap1,cap2,step,num)
+    study = engine(study, study_name, layers, envir1, envir2,area1,area2,cap1,cap2,step,num)
     df = study.trials_dataframe()
     if mode=="lat":
         return df[df["values_0"] == df["values_0"].min()].iloc[0]
@@ -465,9 +465,9 @@ if __name__ == '__main__':
     df = df[(df.values_0 < 100)]
     df.rename(columns={"values_0": "Latency (s)", "values_1": "SP size(cm²)"}, inplace=True)
     print(df)
-    print(df.columns)
-    drawBar1(df,"figure9-example-1")
-    drawBar2(df,"figure9-example-2")
+    df.to_csv(data['network']+'.csv', index=False)
+    drawBar1(df,data['network']+"-1")
+    drawBar2(df,data['network']+"-2")
 
 #     getDf("example-study0719-runTime-cap")
 
