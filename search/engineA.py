@@ -261,7 +261,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
                     Tn = trial.suggest_categorical('tn', getLists(maxTn))
                     l['tile_size'] = [1, 1, 1, 1, Tr, Tc, Tm, Tn]
                     param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                                  "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar1, "layer": [l],
+                                  "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar1, "layer": [l],
                                   "ExecInfo": test_cnn_cost.get_conv_cost,
                                   "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
                     model = iNASModel(step, param_list)
@@ -280,7 +280,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
                         return 5000
 
                     param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                                  "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar2, "layer": [l],
+                                  "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar2, "layer": [l],
                                   "ExecInfo": test_cnn_cost.get_conv_cost,
                                   "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
                     model = iNASModel(step, param_list)
@@ -314,18 +314,26 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
                 Tm = study.best_params['tm']
                 Tn = study.best_params['tn']
                 ua = study.best_trial.user_attrs
-                Eb = Eb + (ua['Eb'])
-                Lb = Lb + (ua['Lb'])
-                Er = Er + (ua['Er'])
-                Lr = Lr + (ua['Lr'])
-                Ec = Ec + (ua['Ec'])
-                Lc = Lc + (ua['Lc'])
-                Ew = Ew + (ua['Ew'])
-                Lw = Lw + (ua['Lw'])
+                if 'Eb' in ua:
+                    Eb = Eb + (ua['Eb'])
+                if 'Lb' in ua:
+                    Lb = Lb + (ua['Lb'])
+                if 'Er' in ua:
+                    Er = Er + (ua['Er'])
+                if 'Lr' in ua:
+                    Lr = Lr + (ua['Lr'])
+                if 'Ec' in ua:
+                    Ec = Ec + (ua['Ec'])
+                if 'Lc' in ua:
+                    Lc = Lc + (ua['Lc'])
+                if 'Ew' in ua:
+                    Ew = Ew + (ua['Ew'])
+                if 'Lw' in ua:
+                    Lw = Lw + (ua['Lw'])
                 l['tile_size'] = [1, 1, 1, 1, Tr, Tc, Tm, Tn]
                 layer_new.append(l)
             param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                          "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar1, "layer": layer_new,
+                          "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar1, "layer": layer_new,
                           "ExecInfo": test_cnn_cost.get_conv_cost,
                           "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
             model = iNASModel(step, param_list)
@@ -342,7 +350,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
             if errFlag:
                 return 10000
             param_list = {"insitu_power": 1e-3, "cap_volume": cap_size, "cap_voltage": 0,
-                          "eh_area": eh_area, "eh_efficiency": 0.5, "eh_power": solar2, "layer": layer_new,
+                          "eh_area": eh_area, "eh_efficiency": 0.15, "eh_power": solar2, "layer": layer_new,
                           "ExecInfo": test_cnn_cost.get_conv_cost,
                           "v_on": 3.0, "v_off": 2.8, "v_max": 4.1, "strategy": "runtime", "mode": "latency"}
             model = iNASModel(step, param_list)
@@ -370,7 +378,7 @@ def engine(study, name, layer, solar1, solar2,area1,area2,cap1,cap2,step,num):
             print(max_throughput.trial_optuna_count, (count1 + count2) / 2, eh_area)
             return (count1 + count2) / 2, eh_area
 
-        study.optimize(max_throughput, n_trials=1, n_jobs=1)
+        study.optimize(max_throughput, n_trials=10, n_jobs=1)
         drawImg(study,name, step)
         # fig = optuna.visualization.plot_pareto_front(study)
         # # plotly.offline.plot(fig)
